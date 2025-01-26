@@ -22,11 +22,9 @@ arr = extract_sub()
 
 
 def select_random_string_pos(word):
-    get_length_of_word = len(word)
-    print(get_length_of_word)
-    print(word)
-    x_num = random.randint(0, 2)
-    return x_num
+
+    positions = random.sample(range(len(word)), 2)
+    return sorted(positions)
 
 
 for subs_text in arr:
@@ -36,11 +34,12 @@ for subs_text in arr:
         clean_words = words[i].translate(translator)
 
         if clean_words.lower() in forbidden_list:
-            words[i] = (
-                words[i][: select_random_string_pos(words[i])]
-                + "xx"
-                + words[i][select_random_string_pos(words[i]) :]
-            )
+            positions = select_random_string_pos(words[i])
+            x = positions[0]
+            y = positions[1]
+            print("x: ", x, "y: ", y)
+
+            words[i] = words[i][:x] + "xx" + words[i][y:]
 
     new_sub_text = " ".join(words)
     result_words.append(new_sub_text)
